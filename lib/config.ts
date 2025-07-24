@@ -1,6 +1,6 @@
 // Environment configuration
 export const config = {
-    API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://ff2a7a6638d2.ngrok-free.app",
+    API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://135.181.55.236:8001",
     GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
     APP_ENV: process.env.NODE_ENV || "development",
     IS_DEVELOPMENT: process.env.NODE_ENV === "development",

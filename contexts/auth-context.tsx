@@ -45,17 +45,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signup = async (name: string, email: string, password: string): Promise<void> => {
     try {
       setIsLoading(true)
-      const response = await authApi.signup({ full_name: name, email, password })
-
-      const authData = {
-        token: response.access_token, // Updated to match API response
-        user: response.user,
-        refreshToken: response.refresh_token,
-      }
-
-      authManager.setAuth(authData)
-      setUser(response.user)
-      router.push("/chat")
+      await authApi.signup({ full_name: name, email, password })
+      router.push("/auth/login")
     } catch (error) {
       throw error
     } finally {

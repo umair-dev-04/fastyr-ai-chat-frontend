@@ -34,7 +34,7 @@ class ApiClient {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
-        "ngrok-skip-browser-warning": "anyvalue",
+        // "ngrok-skip-browser-warning": "anyvalue",
       },
       ...options,
     }

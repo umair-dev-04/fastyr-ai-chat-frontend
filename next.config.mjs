@@ -25,7 +25,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://ff2a7a6638d2.ngrok-free.app https://accounts.google.com; frame-src https://accounts.google.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' http://135.181.55.236:8001 https://accounts.google.com; frame-src https://accounts.google.com;",
           },
           {
             key: 'X-Content-Type-Options',

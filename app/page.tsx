@@ -139,15 +139,6 @@ export default function HomePage() {
                 {isAuthenticated ? "Start Chatting" : "Try It Free"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => router.push("/demo")}
-                className="text-lg px-8 py-3"
-                data-cy="watch-demo-btn"
-              >
-                Watch Demo
-              </Button>
             </motion.div>
           </div>
         </section>
