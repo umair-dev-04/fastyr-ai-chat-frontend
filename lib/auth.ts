@@ -23,9 +23,13 @@ export interface AuthData {
 export class AuthManager {
   private static instance: AuthManager
   private authData: AuthData | null = null
+  private isClient: boolean
 
   private constructor() {
-    this.loadAuthData()
+    this.isClient = typeof window !== "undefined"
+    if (this.isClient) {
+      this.loadAuthData()
+    }
   }
 
   static getInstance(): AuthManager {
@@ -36,6 +40,8 @@ export class AuthManager {
   }
 
   private loadAuthData(): void {
+    if (!this.isClient) return
+
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.AUTH)
       if (stored) {
@@ -70,7 +76,9 @@ export class AuthManager {
 
   setAuth(authData: AuthData): void {
     this.authData = authData
-    localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(authData))
+    if (this.isClient) {
+      localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(authData))
+    }
     logger.info("Auth data set", { userId: authData.user.id, email: authData.user.email })
   }
 
@@ -94,9 +102,11 @@ export class AuthManager {
 
   clearAuth(): void {
     this.authData = null
-    localStorage.removeItem(STORAGE_KEYS.AUTH)
-    localStorage.removeItem("token") // Legacy cleanup
-    localStorage.removeItem("user") // Legacy cleanup
+    if (this.isClient) {
+      localStorage.removeItem(STORAGE_KEYS.AUTH)
+      localStorage.removeItem("token") // Legacy cleanup
+      localStorage.removeItem("user") // Legacy cleanup
+    }
     logger.info("Auth data cleared")
   }
 

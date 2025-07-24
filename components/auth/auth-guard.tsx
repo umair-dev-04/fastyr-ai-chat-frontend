@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -17,8 +17,15 @@ const publicRoutes = ["/", "/auth/login", "/auth/signup", "/demo"]
 
 export function AuthGuard({ children, requireAuth = true, redirectTo = "/auth/login" }: AuthGuardProps) {
   const { isAuthenticated, isLoading } = useAuth()
+  const [isClient, setIsClient] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+
+
+  // Handle client-side hydration
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     if (isLoading) return
@@ -34,9 +41,9 @@ export function AuthGuard({ children, requireAuth = true, redirectTo = "/auth/lo
       router.push("/chat")
       return
     }
-  }, [isAuthenticated, isLoading, pathname, router, requireAuth, redirectTo])
+  }, [isAuthenticated, isLoading, pathname, router, requireAuth, redirectTo, isClient])
 
-  if (isLoading) {
+  if (!isClient && isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="space-y-4 w-full max-w-md">

@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { authManager } from "@/lib/auth"
 import { authApi } from "@/lib/api"
 import type { AuthContextType, User } from "@/types"
@@ -26,7 +26,6 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const searchParams = useSearchParams()
 
   const router = useRouter()
 
@@ -40,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     initAuth()
-  }, [searchParams, router])
+  }, [router])
 
   const signup = async (name: string, email: string, password: string): Promise<void> => {
     try {
