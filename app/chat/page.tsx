@@ -323,7 +323,7 @@ function ChatInterface() {
       }
       setMessages((prev) => [...prev, userMessage])
 
-      const response = await sendMessage(messageContent, currentSessionId || undefined)
+      const response = await sendMessage(messageContent.trim(), currentSessionId || undefined)
 
       // Update current session ID if this was a new session
       if (!currentSessionId && response.session_id) {
